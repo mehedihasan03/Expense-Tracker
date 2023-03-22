@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Expense_Tracker.Models.Expense>
+
+@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <form asp-action="Index" asp-controller="Expenses">
+
+        <span class="text text-dark">Start Date :</span> <input type="date" name="startDate" />
+        <span class="text text-dark">End Date :</span> <input type="date" name="endDate" />
+        <input type="submit" value="Get Records" class="btn btn-primary" />
+        <a asp-action="Index" asp-controller="Expenses" class="btn btn-primary"> Show All Records </a>
+
+    </form>
+   
+    <p>
+        <a asp-action="Create" class="btn btn-success">Add</a>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    ExpenseCategory
+                </th>
+                
+                <th>
+                    ExpenseDate
+                </th>
+                <th>
+                    ExpenseAmount
+                </th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseCategories.ExpenseCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseDate)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                </td>
+                
+
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.ExpenseId">Edit</a> |
+                   
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.ExpenseId">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
